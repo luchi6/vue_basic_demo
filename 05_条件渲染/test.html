@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>08_条件渲染</title>
 </head>
+
 <body>
-<!--
+  <!--
 1. 条件渲染指令
   v-if
   v-else
@@ -14,11 +16,27 @@
   如果需要频繁切换 v-show 较好
 -->
 
-<div id="demo">
-</div>
+  <div id="demo">
+    <p v-if="ok">表白成功</p>
+    <p v-else>表白失败</p>
 
-<script type="text/javascript" src="../js/vue.js"></script>
-<script type="text/javascript">
-</script>
+    <p v-show="ok">求婚成功</p>
+    <p v-show="!ok">求婚失败</p>
+
+    <button @click="ok = !ok">切换</button>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: "#demo",
+      data() {
+        return {
+          ok: true
+        }
+      }
+    })
+  </script>
 </body>
+
 </html>
