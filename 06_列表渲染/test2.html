@@ -1,18 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>06_列表渲染_过滤与排序</title>
 </head>
+
 <body>
-<!--
+  <!--
 1. 列表过滤
 2. 列表排序
 -->
+  <div id="demo">
+    <input type="text" v-model="searchName">
+    <ul>
+      <li v-for="(p, index) in filterPersons" :key="p.id">
+        {{p.id}}===={{p.name}}===={{p.age}}
+      </li>
+    </ul>
+    <p>排序</p>
+    <button @click="sortType=2">升序</button>
+    <button @click="sortType=3">降序</button>
+    <button @click="sortType=1">重置</button>
+  </div>
 
-<script type="text/javascript" src="../js/vue.js"></script>
-<script type="text/javascript">
-
-</script>
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: "#demo",
+      data: {
+        searchName: "",
+        sortType: 1, // 1:默认排序；2:升序；3:降序
+        persons: [
+          { id: 1, name: 'tom', age: 18 },
+          { id: 3, name: 'monkey', age: 13 },
+          { id: 4, name: 'jane', age: 15 },
+          { id: 5, name: 'jack', age: 11 },
+          { id: 2, name: 'luch5', age: 18 }
+        ]
+      },
+      computed: {
+        filterPersons() {
+          // 1.取出依赖数据
+          const { searchName, persons, sortType } = this
+          // 2.计算产生一个新数据
+          // 模糊搜索
+          const arr = persons.filter((p, index) => p.name.indexOf(searchName) !== -1)
+          // 排序
+          if (sortType !== 1) {
+            arr.sort((p1, p2) => {
+              if (sortType === 2) {
+                return p1.age - p2.age
+              } else {
+                return p2.age - p1.age
+              }
+            })
+          }
+          // 3.返回新数据
+          return arr
+        }
+      }
+    })
+  </script>
 </body>
+
 </html>
