@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>11_过滤器</title>
 </head>
+
 <body>
-<!--
+  <!--
 1. 理解过滤器
   功能: 对要显示的数据进行特定格式化后再显示
   注意: 并没有改变原本的数据, 可是产生新的对应的数据
@@ -19,14 +21,29 @@
     <div>{{myData | filterName}}</div>
     <div>{{myData | filterName(arg)}}</div>
 -->
-<!--需求: 对当前时间进行指定格式显示-->
-<div id="test">
-  <h2>显示格式化的日期时间</h2>
-</div>
+  <!--需求: 对当前时间进行指定格式显示-->
+  <div id="test">
+    <h2>显示格式化的日期时间</h2>
+    <p>开始时间：{{startTime}}</p>
+    <p>开始时间：{{startTime | dateFormat}}</p>
+    <p>开始时间：{{startTime | dateFormat("YYYY-MM-DD")}}</p>
+    <p>开始时间：{{startTime | dateFormat("HH:mm:ss")}}</p>
+  </div>
 
-<script type="text/javascript" src="../js/vue.js"></script>
-<script>
-
-</script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.1/moment.js"></script>
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script>
+    Vue.filter("dateFormat", function (value, formatStr) {
+      // date-js | moment | date-fns
+      return moment(value).format(formatStr || 'YYYY-MM-DD HH:mm:ss');
+    })
+    new Vue({
+      el: "#test",
+      data: {
+        startTime: Date.now()
+      }
+    })
+  </script>
 </body>
+
 </html>
