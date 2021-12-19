@@ -1,14 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>17_插件</title>
 </head>
+
 <body>
+  <div id="test">
+    <p v-my-directive=msg></p>
+  </div>
 
-<script type="text/javascript" src="../js/vue.js"></script>
-<script type="text/javascript">
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script src="./vue-MyPlugin.js"></script>
+  <script type="text/javascript">
+    
+    Vue.use(MyPlugin)
+    Vue.myGlobalMethod()
+    const vm = new Vue({
+      el: "#test",
+      data: {
+        msg: "luch=="
+      },
+      methods: {
 
-</script>
+      },
+    })
+
+    vm.$myMethod()
+  </script>
 </body>
+
 </html>
